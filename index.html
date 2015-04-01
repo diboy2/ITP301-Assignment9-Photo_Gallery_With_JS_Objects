@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vacations</title>
+	<style>
+		.thumbnail{
+			
+			text-align: center;
+		}
+		.selected{
+			border: 4px solid #0F0;
+		}
+
+		body{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+
+	<input type="text" id="search" onkeyup="selectSearched()" />
+	<br>
+	<br>
+	<div id="thumbnails">
+
+	</div>
+	
+</body>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+		var images = [];
+		$(function(){
+
+			var imageObject = {
+				source:"disneyworld.jpg",
+				caption:"Disneyworld",
+				tags:"florida, amusement park, disney, epcot, animal kingdom"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"eiffel_tower.jpg",
+				caption:"Eiffel Tower",
+				tags:"france, landmark, tower, paris, tall"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"great_wall_of_china.jpg",
+				caption:"Great Wall Of China",
+				tags:"wall, china, seven wonders of the world, protection, long"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"hawaii.jpg",
+				caption:"Hawaii",
+				tags:"islands, beach, scuba diving, hula, surfing"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"las_vegas.jpg",
+				caption:"Las Vegas",
+				tags:"casinos, nevada, sin city, hot, what happens in vegas stays in vegas"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"new_york.jpg",
+				caption:"New York",
+				tags:"city, statue of liberty, empire state building, twin towers, central park"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"philippines.jpg",
+				caption:"Philippines",
+				tags:"beach, islands, mangos, tropical, hot"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"pyramid.jpg",
+				caption:"Pyramid",
+				tags:"egypt, hot, pharaoh, seven wonders of the world, sphinx"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"taj_mahal.jpg",
+				caption:"Taj Mahal",
+				tags:"seven wonders of the world, india, mausoleum, white marble, cultural"
+			};
+			images.push(imageObject);
+			imageObject = {
+				source:"yellowstone.jpg",
+				caption:"Yellowstone",
+				tags:"national park, wyoming, animals, old faithful, camping"
+			};
+			images.push(imageObject);
+
+			thumbnailsHTML = "";
+			
+			for(i=0; i<images.length; i++){
+				var thumbnailHTML = "<div class='thumbnail'><br>";
+
+				thumbnailHTML += '<img id="'+i+'" src="images/'+images[i].source+'" class="imageThumb"><br>';
+				thumbnailHTML += "Image Caption: " + images[i].caption + "<br>";
+				thumbnailHTML += "Image Tags: " + images[i].tags + "<br>";
+				thumbnailHTML += "<br></div><br>";
+				thumbnailsHTML += thumbnailHTML;
+			}
+
+			document.getElementById("thumbnails").innerHTML = thumbnailsHTML;
+
+		});
+
+		function selectSearched(){
+
+			var searchValue = document.getElementById("search").value;
+			$(".imageThumb").removeClass("selected");
+			if(searchValue.length!=0){
+				for(i=0; i<images.length; i++){
+					var strPattern = searchValue.replace(/s$/,"") + "+"; 
+					var strRE = new RegExp(strPattern, "i");
+					if(images[i].caption.search(strRE)!=-1 || images[i].tags.search(strRE)!=-1 ){
+						$("#"+i).addClass("selected");
+					}
+				}
+			} 
+		}
+
+	</script>
+	</html>
